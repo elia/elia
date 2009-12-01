@@ -15,7 +15,7 @@ describe BitFields do
       field :frame_data_field_status, 'S' do
         bit_field :secondary_header_flag,    1
         bit_field :sync_flag,                1
-        bit_field :packet_order_flag,        1
+        bit_field :packet_order,             1
         bit_field :segment_length_id,        2
         bit_field :first_header_pointer,    11
       end
@@ -51,6 +51,7 @@ describe BitFields do
   it 'should define question mark methods for bit fields of length 1' do
     @object.should respond_to(:sync_flag?)
     @object.should respond_to(:sync?)
+    @object.should respond_to(:packet_order?)
     @object.sync_flag?.should == false
     @object.should respond_to(:secondary_header?)
     @object.secondary_header?.should == true
