@@ -1,0 +1,19 @@
+.imgLink
+  cursor: pointer
+
+
+=glider_container(!width=600px, !height=400px)
+  width= !width
+  height= !height
+  overflow: hidden
+  
+=glider_sections_container
+  width: 20000px
+  
+=glider_section(!width=600px, !height=400px)
+  width= !width
+  - unless !height == 'auto'
+    height: !height - 30px
+  overflow: hidden
+  float: left
+  padding: 10px
