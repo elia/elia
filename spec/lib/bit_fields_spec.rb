@@ -29,6 +29,8 @@ describe BitFields do
     @object.char_value.should == 23
     @object.secondary_header_flag.should == 0b1
     @object.sync_flag.should == 0b0
+    @object.packet_order.should == 0b1
+    @object.segment_length_id.should == 0b00
     @object.first_header_pointer.should == 0b111_11111111
   end
   

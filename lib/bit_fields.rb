@@ -82,7 +82,6 @@ module BitFields
   # 
   def field name, unpack_recipe = 'C', &bit_fields_definitions_block
     include InstanceMethods # when used we include instance methods
-    logger.debug { self.ancestors.inspect }
     
     # Setup class "instance" vars
     @fields        ||= []
@@ -95,7 +94,6 @@ module BitFields
     
     # Define the attribute reader
     class_eval "def #{name}; self.attributes[#{name.inspect}]; end;", __FILE__, __LINE__
-    # define_method(name) { self.fields[name] }
     
     # There's a bit-structure too?
     if block_given?
@@ -103,7 +101,7 @@ module BitFields
       
       bit_fields_definitions_block.call
       
-      @bit_fields[name] = @_current_bit_fields
+      @bit_fields[name] = @_current_bit_fields.reverse
       @_current_bit_fields = nil
     end
   end
@@ -118,7 +116,7 @@ module BitFields
     raise "'bit_field' can be used only inside a 'field' block." if @_current_bit_fields.nil?
     
     # Register the bit field definition
-    @_current_bit_fields << [name, width]
+    @_current_bit_fields << [name, width, bit_mask(width)]
     
     # Define the attribute reader
     class_eval "def #{name};  self.attributes[#{name.inspect}];      end\n", __FILE__, __LINE__
@@ -134,8 +132,13 @@ module BitFields
       end
     end
     
-    logger.debug { @_current_bit_fields.inspect }
   end
+  
+  def bit_mask size
+    2 ** size - 1
+  end
+  
+  
   
   
   module InstanceMethods
@@ -160,10 +163,10 @@ module BitFields
     
     private
     
-    def eat_right_bits original_value, bits_number
+    def eat_right_bits original_value, bits_number, bit_mask
       # Filter the original value with the 
       # proper bitmask to get the rightmost bits
-      new_value = original_value & bit_mask(bits_number)
+      new_value = original_value & bit_mask
       
       # Eat those rightmost bits 
       # wich we have just consumed
@@ -178,40 +181,27 @@ module BitFields
       @raw = raw
       
       # Setup
-      unpack_recipe = self.class.unpack_recipe
-      logger.debug "Unpacking #{@raw.inspect} with #{unpack_recipe.inspect}"
-      @unpacked     = @raw.unpack(unpack_recipe)
+      @unpacked     = @raw.unpack( self.class.unpack_recipe )
       @attributes ||= {}
       
-      logger.debug { "Parsing #{@raw.inspect} with fields #{self.class.fields.inspect}" }
       self.class.fields.each_with_index do |name, position|
-        logger.debug { "Parsing field #{name.inspect}" }
         
-        attributes[name] = @unpacked[position]
+        @attributes[name] = @unpacked[position]
         
         # We must extract bits from end since 
         # ruby doesn't have types (and fixed lengths)
-        if bit_definitions = self.class.bit_fields[name]
-          logger.debug { "Parsing value #{attributes[name]} with bit fields #{bit_definitions.inspect}" }
+        if bit_fields = self.class.bit_fields[name]
         
           bit_value = attributes[name]
-          bit_definitions.reverse.each do |bit_field|
-            logger.debug "Parsing bit field: #{bit_field.inspect} current value: #{bit_value} (#{bit_value.to_s 2})"
-            bit_name, bit_size = *bit_field
-            attributes[bit_name], bit_value = eat_right_bits(bit_value, bit_size)
-          
-            logger.debug {
-              "#{bit_name}: #{attributes[bit_name]} 0b#{attributes[bit_name].to_s(2).rjust(16, '0')}"
-            }
+          bit_fields.each do |(bit_name, bits_number, bit_mask)|
+            # @attributes[bit_name], bit_value = eat_right_bits(bit_value, bits_number, bit_mask)
+            # logger.debug "#{bit_name.to_s.rjust(20)}: #{bit_value.to_s(2).rjust(40)} & #{bit_mask.to_s(2).rjust(20)} = #{(bit_value & bit_mask).to_s(2).rjust(20)}"
+            
+            @attributes[bit_name]  = bit_value & bit_mask
+            bit_value = bit_value >> bits_number
           end
         end
       end
-      
-      @parsed = true
-    end
-    
-    def bit_mask size
-      2 ** size - 1
     end
     
     def to_s
