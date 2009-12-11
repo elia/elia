@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "1.1.0"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2009-12-01}
+  s.date = %q{2009-12-11}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -22,15 +22,30 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/bit_fields.rb",
+     "lib/ccsds.rb",
+     "lib/ccsds/cuc.rb",
      "lib/elia.rb",
+     "lib/file_with_read_buffer.rb",
+     "lib/indifferent_reader.rb",
+     "lib/io_string.rb",
      "lib/path_operator.rb",
      "lib/process_extensions.rb",
+     "lib/sass_support.rb",
+     "lib/sass_support/_border_radius.sass",
+     "lib/sass_support/_glider.sass",
+     "lib/slapp.rb",
+     "lib/space_wire.rb",
      "lib/string_nibbles.rb",
      "lib/world_logger.rb",
      "spec/lib/bit_fields_spec.rb",
+     "spec/lib/ccsds_spec.rb",
      "spec/lib/elia_spec.rb",
+     "spec/lib/indifferent_reader_spec.rb",
      "spec/lib/path_operator_spec.rb",
      "spec/lib/process_extensions_spec.rb",
+     "spec/lib/space_wire/data.bin",
+     "spec/lib/space_wire/index.bin",
+     "spec/lib/space_wire_spec.rb",
      "spec/lib/string_nibbles_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -42,9 +57,12 @@ Gem::Specification.new do |s|
   s.summary = %q{Elia Schito's utility belt}
   s.test_files = [
     "spec/lib/bit_fields_spec.rb",
+     "spec/lib/ccsds_spec.rb",
      "spec/lib/elia_spec.rb",
+     "spec/lib/indifferent_reader_spec.rb",
      "spec/lib/path_operator_spec.rb",
      "spec/lib/process_extensions_spec.rb",
+     "spec/lib/space_wire_spec.rb",
      "spec/lib/string_nibbles_spec.rb",
      "spec/spec_helper.rb"
   ]
