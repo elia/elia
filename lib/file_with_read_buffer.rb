@@ -19,7 +19,7 @@ module FileWithBufferedRead
   def read_buffer
     if @read_buffer.nil? or @read_buffer.eof?
       # logger.debug{ "Buffering #{READ_BUFFER_SIZE} from #{self.inspect} current position: #{self.pos}" }
-      @read_buffer = StringIO.new(read(READ_BUFFER_SIZE))
+      @read_buffer = StringIO.new(read(READ_BUFFER_SIZE) || '')
       # logger.debug{ "Buffered #{@read_buffer.size}, EOF:#{self.eof?} current position: #{self.pos}" }
       @buffer_left = @read_buffer.size
     end
