@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "1.2.0"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2009-12-11}
+  s.date = %q{2009-12-21}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "lib/ccsds.rb",
      "lib/ccsds/cuc.rb",
      "lib/elia.rb",
+     "lib/errno_knows.rb",
      "lib/file_with_read_buffer.rb",
      "lib/indifferent_reader.rb",
      "lib/io_string.rb",
@@ -33,6 +34,11 @@ Gem::Specification.new do |s|
      "lib/sass_support.rb",
      "lib/sass_support/_border_radius.sass",
      "lib/sass_support/_glider.sass",
+     "lib/scoe.rb",
+     "lib/scoe/generic_link.rb",
+     "lib/scoe/server.rb",
+     "lib/scoe/setup.rb",
+     "lib/scoe/tm.rb",
      "lib/slapp.rb",
      "lib/space_wire.rb",
      "lib/string_nibbles.rb",
