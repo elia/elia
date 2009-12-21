@@ -80,6 +80,8 @@ module BitFields
   # 
   # Also defines the attribute reader method
   # 
+  # TODO: add a skip bits syntax
+  # 
   def field name, unpack_recipe = 'C', &bit_fields_definitions_block
     include InstanceMethods # when used we include instance methods
     
@@ -111,6 +113,9 @@ module BitFields
   # 
   # +name+  :: the name of the bit field (that will be used to access it)
   # +width+ :: the number of bits from which this value should be extracted
+  # 
+  # TODO: add options to enable method aliases
+  # TODO: add a skip bits syntax
   # 
   def bit_field name, width
     raise "'bit_field' can be used only inside a 'field' block." if @_current_bit_fields.nil?
@@ -153,7 +158,7 @@ module BitFields
     
     # Takes the raw binary string and parses it
     def initialize bit_string
-      parse_bit_fields(bit_string.dup.freeze)
+      parse_bit_fields(bit_string) #.dup.freeze REMOVED: seems useless
     end
     
     # Makes defined fields accessible like a +Hash+
@@ -162,19 +167,6 @@ module BitFields
     end
     
     private
-    
-    def eat_right_bits original_value, bits_number, bit_mask
-      # Filter the original value with the 
-      # proper bitmask to get the rightmost bits
-      new_value = original_value & bit_mask
-      
-      # Eat those rightmost bits 
-      # wich we have just consumed
-      remaning = original_value >> bits_number
-      
-      # Return also the remaning bits
-      return new_value, remaning
-    end
     
     # Parses the raw value extracting the defined bit fields
     def parse_bit_fields raw
@@ -194,11 +186,8 @@ module BitFields
         
           bit_value = attributes[name]
           bit_fields.each do |(bit_name, bits_number, bit_mask)|
-            # @attributes[bit_name], bit_value = eat_right_bits(bit_value, bits_number, bit_mask)
-            # logger.debug "#{bit_name.to_s.rjust(20)}: #{bit_value.to_s(2).rjust(40)} & #{bit_mask.to_s(2).rjust(20)} = #{(bit_value & bit_mask).to_s(2).rjust(20)}"
-            
-            @attributes[bit_name]  = bit_value & bit_mask
-            bit_value = bit_value >> bits_number
+            @attributes[bit_name] = bit_value &  bit_mask
+            bit_value             = bit_value >> bits_number
           end
         end
       end
