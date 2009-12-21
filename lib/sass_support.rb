@@ -1,3 +1,5 @@
-require 'haml'
+require 'sass'
+require 'sass/plugin'
 
-Sass::Plugin.options[:loadpaths] << File.dirname(__FILE__) + '/sass_support'
+Sass::Plugin.options[:load_paths] ||= []
+Sass::Plugin.options[:load_paths] << File.dirname(__FILE__) + '/sass_support'
