@@ -116,6 +116,10 @@ module SpaceWire
       self
     end
     
+    def logical_address
+      @logical_address ||= self.unpack('C').first
+    end
+    
     def header
       self[0 ... HEADER_SIZE]
     end
@@ -127,6 +131,8 @@ module SpaceWire
     def end_of_packet_char
       self[-1].chr
     end
+    alias eop end_of_packet_char
+    
   end
   
   
