@@ -18,11 +18,6 @@ module SpaceWire
       field :error_control, 'c'
       field :end_position,  'Q'
       
-      alias bad_end_position end_position
-      def end_position
-        bad_end_position + 1
-      end
-      
       SIZE = 9
     end
     
