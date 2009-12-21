@@ -137,6 +137,6 @@ module SpaceWire
   
   
   def self.rote_quadrate
-    raise "È una doccia fredda!"
+    raise "E' una doccia fredda!"
   end
 end
