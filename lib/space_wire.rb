@@ -37,6 +37,7 @@ module SpaceWire
     # Takes a string, string io, or any io
     def initialize(io_or_string)
       @source = io_or_string
+      @source.io.binmode # required on windows
     end
     
     def each
@@ -63,8 +64,8 @@ module SpaceWire
       
       @file = File.open(@file_path)
       @file.extend FileWithBufferedRead
-      
-      @index = Index.new File.read(@index_path)
+      index_contents = File.open(@index_path, 'rb'){|f| f.read} # binary mode is necessary on windows
+      @index = Index.new index_contents
     end
     
     def each_packet

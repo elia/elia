@@ -12,7 +12,9 @@ describe SpaceWire do
   
   it 'should read SpaceWire indexes' do
     last_end_position = 0
-    index = SpaceWire::Index.new(File.read(@index_path))
+    index_contents = File.open(@index_path,'rb') { |index_file| index_file.read }
+    
+    index = SpaceWire::Index.new(index_contents)
     index.records.size.should == 100
     index.records.each do |record|
       record.end_position.should == last_end_position + 4117
@@ -20,7 +22,7 @@ describe SpaceWire do
       last_end_position = record.end_position
     end
     
-    File.open(@index_path,'r') do |file|
+    File.open(@index_path,'rb') do |file|
       last_end_position = 0
       while index = file.read(9)
         end_char, end_position = index.unpack('cQ')
