@@ -19,6 +19,11 @@ module CCSDS
         bit_field :data_header,         1
         bit_field :apid,               11
       end
+      
+      # APID
+      def pid;             @attributes[:pid] ||= apid >> 4;                 end
+      def packet_category; @attributes[:packet_category] ||= apid & 0b1111; end
+      
       field :packet_sequence_control,  'n' do
         bit_field :segmentation_flags,  2
         bit_field :ssc,                14
