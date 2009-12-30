@@ -1,6 +1,7 @@
 require 'bit_fields'
 require 'indifferent_reader'
 require 'file_with_read_buffer'
+require 'ruby19'
 
 module SpaceWire
   
