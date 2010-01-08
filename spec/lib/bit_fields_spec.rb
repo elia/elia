@@ -58,5 +58,12 @@ describe BitFields do
     @object.should respond_to(:secondary_header?)
     @object.secondary_header?.should == true
   end
+  
+  it 'should be able to repack from its attributes correctly' do
+    repacked = @klass.new @object.attributes
+    repacked.raw.should == @object.raw
+    reunpacked = @klass.new repacked.raw
+    reunpacked.attributes.should == repacked.attributes
+  end
 end
 

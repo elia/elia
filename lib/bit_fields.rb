@@ -1,4 +1,5 @@
 require 'world_logger'
+require 'ruby19' # for string ecoding compatibility
 
 # 
 # BitFields provides a simple way to extract a values from bit fields, 
@@ -70,6 +71,11 @@ module BitFields
   # Collects the full <tt>String#unpack</tt> directive used to parse the raw value.
   attr_reader :unpack_recipe
   
+  # Defines accessors for the attributes hash
+  def bits_attr_accessor name
+    class_eval "def #{name};       self.attributes[#{name.inspect}];     end;", __FILE__, __LINE__
+    class_eval "def #{name}=(val); self.attributes[#{name.inspect}]=val; end;", __FILE__, __LINE__
+  end
   
   ##
   # Defines a field to be extracted with String#unpack from the raw value
@@ -94,8 +100,8 @@ module BitFields
     @unpack_recipe << unpack_recipe
     @fields        << name
     
-    # Define the attribute reader
-    class_eval "def #{name}; self.attributes[#{name.inspect}]; end;", __FILE__, __LINE__
+    # Define the attribute accessor
+    bits_attr_accessor(name)
     
     # There's a bit-structure too?
     if block_given?
@@ -103,7 +109,7 @@ module BitFields
       
       bit_fields_definitions_block.call
       
-      @bit_fields[name] = @_current_bit_fields.reverse
+      @bit_fields[name] = @_current_bit_fields
       @_current_bit_fields = nil
     end
   end
@@ -123,8 +129,8 @@ module BitFields
     # Register the bit field definition
     @_current_bit_fields << [name, width, bit_mask(width)]
     
-    # Define the attribute reader
-    class_eval "def #{name};  self.attributes[#{name.inspect}];      end\n", __FILE__, __LINE__
+    # Define the attribute accessor
+    bits_attr_accessor(name)
     
     if  width == 1 or name.to_s =~ /_flag$/
       # Define a question mark method if the size is 1 bit
@@ -156,9 +162,17 @@ module BitFields
     # caches the bin string unpacked values
     attr_reader :unpacked
     
+    class ValueOverflow < StandardError
+    end
+    
     # Takes the raw binary string and parses it
-    def initialize bit_string
-      parse_bit_fields(bit_string) #.dup.freeze REMOVED: seems useless
+    def initialize bit_string_or_hash
+      if bit_string_or_hash.kind_of?(Hash)
+        @attributes = bit_string_or_hash
+        pack_bit_fields
+      else
+        parse_bit_fields(bit_string_or_hash) #.dup.freeze REMOVED: seems useless
+      end
     end
     
     # Makes defined fields accessible like a +Hash+
@@ -180,17 +194,50 @@ module BitFields
         
         @attributes[name] = @unpacked[position]
         
-        # We must extract bits from end since 
-        # ruby doesn't have types (and fixed lengths)
         if bit_fields = self.class.bit_fields[name]
-        
+          
           bit_value = attributes[name]
-          bit_fields.each do |(bit_name, bits_number, bit_mask)|
+        
+          # We must extract bits from end since 
+          # ruby doesn't have types (and fixed lengths)
+          bit_fields.reverse.each do |(bit_name, bits_number, bit_mask)|
             @attributes[bit_name] = bit_value &  bit_mask
             bit_value             = bit_value >> bits_number
           end
         end
       end
+    end
+    
+    # Parses the raw value extracting the defined bit fields
+    def pack_bit_fields
+      @unpacked = []
+      
+      self.class.fields.each_with_index do |name, position|
+        
+        if bit_fields = self.class.bit_fields[name]
+        
+          bit_value = 0
+          bit_fields.each do |(bit_name, bits_number, bit_mask)|
+            masked = @attributes[bit_name] & bit_mask
+            
+            raise ValueOverflow, 
+                  "the value #{@attributes[bit_name]} "+
+                  "is too big for #{bits_number} bits" if masked != @attributes[bit_name]
+            
+            bit_value = bit_value << bits_number
+            bit_value |= masked
+          end
+          
+          # Value of fields composed by binary fields is always overwritten
+          # by the composition of the latter
+          attributes[name] = bit_value
+        end
+        
+        @unpacked[position] = @attributes[name]
+        
+      end
+      
+      @raw = @unpacked.pack( self.class.unpack_recipe )
     end
     
     def to_s
