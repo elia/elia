@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "2.2.0"
+  s.version = "2.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2009-12-30}
+  s.date = %q{2010-01-08}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -42,24 +42,12 @@ Gem::Specification.new do |s|
      "lib/sass_support.rb",
      "lib/sass_support/_border_radius.sass",
      "lib/sass_support/_glider.sass",
-     "lib/scoe.rb",
-     "lib/scoe/generic_link.rb",
-     "lib/scoe/server.rb",
-     "lib/scoe/setup.rb",
-     "lib/scoe/tm.rb",
      "lib/slapp.rb",
      "lib/string_nibbles.rb",
      "lib/world_logger.rb",
      "spec/lib/bit_fields_spec.rb",
      "spec/lib/ccsds_spec.rb",
      "spec/lib/elia_spec.rb",
-     "spec/lib/fiber/alive_spec.rb",
-     "spec/lib/fiber/current_spec.rb",
-     "spec/lib/fiber/new_spec.rb",
-     "spec/lib/fiber/resume_spec.rb",
-     "spec/lib/fiber/shared/resume.rb",
-     "spec/lib/fiber/transfer_spec.rb",
-     "spec/lib/fiber/yield_spec.rb",
      "spec/lib/indifferent_reader_spec.rb",
      "spec/lib/ini_spec.rb",
      "spec/lib/path_operator_spec.rb",
@@ -77,13 +65,6 @@ Gem::Specification.new do |s|
     "spec/lib/bit_fields_spec.rb",
      "spec/lib/ccsds_spec.rb",
      "spec/lib/elia_spec.rb",
-     "spec/lib/fiber/alive_spec.rb",
-     "spec/lib/fiber/current_spec.rb",
-     "spec/lib/fiber/new_spec.rb",
-     "spec/lib/fiber/resume_spec.rb",
-     "spec/lib/fiber/shared/resume.rb",
-     "spec/lib/fiber/transfer_spec.rb",
-     "spec/lib/fiber/yield_spec.rb",
      "spec/lib/indifferent_reader_spec.rb",
      "spec/lib/ini_spec.rb",
      "spec/lib/path_operator_spec.rb",
