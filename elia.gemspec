@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "2.0.0"
+  s.version = "2.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2009-12-21}
+  s.date = %q{2009-12-30}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -22,15 +22,23 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/bit_fields.rb",
-     "lib/ccsds.rb",
-     "lib/ccsds/cuc.rb",
      "lib/elia.rb",
      "lib/errno_knows.rb",
      "lib/file_with_read_buffer.rb",
      "lib/indifferent_reader.rb",
+     "lib/ini.rb",
      "lib/io_string.rb",
      "lib/path_operator.rb",
      "lib/process_extensions.rb",
+     "lib/ruby19.rb",
+     "lib/ruby19/binread.rb",
+     "lib/ruby19/fiber.rb",
+     "lib/ruby19/tmm1-fiber18-a37a4c3/README",
+     "lib/ruby19/tmm1-fiber18-a37a4c3/Rakefile",
+     "lib/ruby19/tmm1-fiber18-a37a4c3/lib/compat/continuation.rb",
+     "lib/ruby19/tmm1-fiber18-a37a4c3/lib/compat/fiber.rb",
+     "lib/ruby19/tmm1-fiber18-a37a4c3/lib/fiber18.rb",
+     "lib/ruby19/tmm1-fiber18-a37a4c3/test/test_fiber.rb",
      "lib/sass_support.rb",
      "lib/sass_support/_border_radius.sass",
      "lib/sass_support/_glider.sass",
@@ -40,18 +48,22 @@ Gem::Specification.new do |s|
      "lib/scoe/setup.rb",
      "lib/scoe/tm.rb",
      "lib/slapp.rb",
-     "lib/space_wire.rb",
      "lib/string_nibbles.rb",
      "lib/world_logger.rb",
      "spec/lib/bit_fields_spec.rb",
      "spec/lib/ccsds_spec.rb",
      "spec/lib/elia_spec.rb",
+     "spec/lib/fiber/alive_spec.rb",
+     "spec/lib/fiber/current_spec.rb",
+     "spec/lib/fiber/new_spec.rb",
+     "spec/lib/fiber/resume_spec.rb",
+     "spec/lib/fiber/shared/resume.rb",
+     "spec/lib/fiber/transfer_spec.rb",
+     "spec/lib/fiber/yield_spec.rb",
      "spec/lib/indifferent_reader_spec.rb",
+     "spec/lib/ini_spec.rb",
      "spec/lib/path_operator_spec.rb",
      "spec/lib/process_extensions_spec.rb",
-     "spec/lib/space_wire/data.bin",
-     "spec/lib/space_wire/index.bin",
-     "spec/lib/space_wire_spec.rb",
      "spec/lib/string_nibbles_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -65,10 +77,17 @@ Gem::Specification.new do |s|
     "spec/lib/bit_fields_spec.rb",
      "spec/lib/ccsds_spec.rb",
      "spec/lib/elia_spec.rb",
+     "spec/lib/fiber/alive_spec.rb",
+     "spec/lib/fiber/current_spec.rb",
+     "spec/lib/fiber/new_spec.rb",
+     "spec/lib/fiber/resume_spec.rb",
+     "spec/lib/fiber/shared/resume.rb",
+     "spec/lib/fiber/transfer_spec.rb",
+     "spec/lib/fiber/yield_spec.rb",
      "spec/lib/indifferent_reader_spec.rb",
+     "spec/lib/ini_spec.rb",
      "spec/lib/path_operator_spec.rb",
      "spec/lib/process_extensions_spec.rb",
-     "spec/lib/space_wire_spec.rb",
      "spec/lib/string_nibbles_spec.rb",
      "spec/spec_helper.rb"
   ]
