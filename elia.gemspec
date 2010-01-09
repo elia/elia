@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "2.2.1"
+  s.version = "2.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2010-01-08}
+  s.date = %q{2010-01-09}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -41,7 +41,10 @@ Gem::Specification.new do |s|
      "lib/ruby19/tmm1-fiber18-a37a4c3/test/test_fiber.rb",
      "lib/sass_support.rb",
      "lib/sass_support/_border_radius.sass",
+     "lib/sass_support/_box_shadow.sass",
+     "lib/sass_support/_css3.sass",
      "lib/sass_support/_glider.sass",
+     "lib/sass_support/_transform_rotate.sass",
      "lib/slapp.rb",
      "lib/string_nibbles.rb",
      "lib/world_logger.rb",
