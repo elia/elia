@@ -44,3 +44,10 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+task :tag do
+  root = File.dirname(__FILE__)
+  version = File.read( File.join(root,'VERSION') )
+  exec "git tag -f v#{version}"
+end
+
