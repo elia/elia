@@ -10,13 +10,28 @@ module WorldLogger
     @logger
   end
   
+  class NoRaiseObject
+    def method_missing name, *args, &block
+      return self
+    end
+  end
   
   def logger
+    return @__no_raise_object ||= NoRaiseObject.new if @__logger_disabled
+    
     if self.class.const_defined? :Rails
       Rails.logger
     else
       WorldLogger.logger
     end
+  end
+  
+  def disable_logger!
+    @__logger_disabled = true
+  end
+  
+  def enable_logger!
+    @__logger_disabled = false
   end
   
 end
