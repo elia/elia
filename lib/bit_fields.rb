@@ -208,6 +208,9 @@ module BitFields
       end
     end
     
+    public
+    
+    
     # Parses the raw value extracting the defined bit fields
     def pack_bit_fields
       @unpacked = []
@@ -233,12 +236,13 @@ module BitFields
           attributes[name] = bit_value
         end
         
-        @unpacked[position] = @attributes[name]
+        @unpacked[position] = @attributes[name] || 0
         
       end
       
       @raw = @unpacked.pack( self.class.unpack_recipe )
     end
+    alias pack pack_bit_fields
     
     def to_s
       raw.to_s
