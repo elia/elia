@@ -5,7 +5,7 @@ module FileWithBufferedRead
   
   def buffered_read size
     output = read_buffer.read(size)
-    until output.size == size or self.eof?
+    until output.nil? or output.size == size or self.eof?
       output << read_buffer.read(size - output.size)
     end
     return output
