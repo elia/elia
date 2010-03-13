@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "2.3.2"
+  s.version = "2.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2010-01-19}
+  s.date = %q{2010-03-13}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -42,8 +42,10 @@ Gem::Specification.new do |s|
      "lib/sass_support.rb",
      "lib/sass_support/_border_radius.sass",
      "lib/sass_support/_box_shadow.sass",
+     "lib/sass_support/_css3.css",
      "lib/sass_support/_css3.sass",
      "lib/sass_support/_glider.sass",
+     "lib/sass_support/_opacity.sass",
      "lib/sass_support/_transform_rotate.sass",
      "lib/slapp.rb",
      "lib/string_nibbles.rb",
@@ -62,7 +64,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/elia/elia}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Elia Schito's utility belt}
   s.test_files = [
     "spec/lib/bit_fields_spec.rb",
