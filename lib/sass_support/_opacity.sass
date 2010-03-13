@@ -1,0 +1,9 @@
+
+=opacity(!value)
+  @if !value > 0.99999
+    !value = 1
+  @if !value < 0.00001
+    !value = 0
+  filter: alpha(opacity=#{!value})
+  opacity= !value
+    
