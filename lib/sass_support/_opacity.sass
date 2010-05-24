@@ -4,6 +4,8 @@
     !value = 1
   @if !value < 0.00001
     !value = 0
-  filter: alpha(opacity=#{!value})
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{!value * 100})"
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=#{!value * 100})
+  filter: alpha(opacity=#{!value * 100})
   opacity= !value
     

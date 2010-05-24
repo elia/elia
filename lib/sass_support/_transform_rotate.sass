@@ -1,5 +1,6 @@
 =transform-rotate(!deg)
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=#{!deg})"
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=#{!deg})
   -webkit-transform: rotate(#{!deg}deg)
   -moz-transform: rotate(#{!deg}deg)
   rotation: #{!deg}deg
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=#{!deg})
