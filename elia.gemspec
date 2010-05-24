@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{elia}
-  s.version = "2.4.0"
+  s.version = "2.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Elia Schito"]
-  s.date = %q{2010-03-13}
+  s.date = %q{2010-05-24}
   s.description = %q{useful stuff...}
   s.email = %q{perlelia@gmail.com}
   s.extra_rdoc_files = [
@@ -42,7 +42,6 @@ Gem::Specification.new do |s|
      "lib/sass_support.rb",
      "lib/sass_support/_border_radius.sass",
      "lib/sass_support/_box_shadow.sass",
-     "lib/sass_support/_css3.css",
      "lib/sass_support/_css3.sass",
      "lib/sass_support/_glider.sass",
      "lib/sass_support/_opacity.sass",
