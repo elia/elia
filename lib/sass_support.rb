@@ -1,7 +1,15 @@
 require 'sass'
 require 'sass/plugin'
 
-Sass::Plugin.instance_eval {
-  @options[:load_paths] ||= []
-  @options[:load_paths] << File.join( File.dirname(__FILE__), 'sass_support' )
-}
+
+module Sass
+  ELIA_SASS_SUPPORT = File.join( File.dirname(__FILE__), 'sass_support' )
+end
+
+[
+  # Sass::Engine::DEFAULT_OPTIONS, 
+  Sass::Plugin.options
+].each do |hash|
+  hash[:load_paths] ||= ["."]
+  hash[:load_paths] << File.join( Sass::ELIA_SASS_SUPPORT )
+end
